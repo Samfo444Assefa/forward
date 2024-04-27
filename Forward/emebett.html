@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    background-image: url('Backgrounds/david-jorre-9f1gCaLkZBU-unsplash (1).jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.video-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.video-container video {
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.other-content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* CSS animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+button#startButton {
+    animation: pulse 1.5s infinite alternate;
+}
+
+button#stopButton {
+    animation: pulse 1.5s infinite alternate-reverse;
+}
+
+
+    </style>
+    <div class="container">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay></video>
+        <button id="startButton">Start Call</button>
+        <button id="stopButton">Stop Call</button>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+const stopButton = document.getElementById('stopButton');
+const localVideo = document.getElementById('localVideo');
+const remoteVideo = document.getElementById('remoteVideo');
+
+let localStream;
+let peerConnection;
+
+const signalingServerUrl = 'ws://localhost:3000';
+const signalingSocket = new WebSocket(signalingServerUrl);
+
+signalingSocket.onopen = () => {
+    console.log('Signaling server connection established');
+};
+
+signalingSocket.onerror = error => {
+    console.error('Signaling server connection error:', error);
+};
+
+signalingSocket.onmessage = async event => {
+    const message = JSON.parse(event.data);
+    if (message.type === 'offer') {
+        await handleOffer(message);
+    } else if (message.type === 'answer') {
+        await handleAnswer(message);
+    }
+};
+
+const startCall = async () => {
+    try {
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        localVideo.srcObject = localStream;
+
+        const configuration = {};
+
+        peerConnection = new RTCPeerConnection(configuration);
+        peerConnection.addEventListener('track', event => {
+            remoteVideo.srcObject = event.streams[0];
+        });
+
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+
+        signalingSocket.send(JSON.stringify({ type: 'offer', data: offer }));
+    } catch (error) {
+        console.error('Error starting call:', error);
+    }
+};
+
+const stopCall = () => {
+    localStream.getTracks().forEach(track => track.stop());
+    peerConnection.close();
+    localVideo.srcObject = null;
+    remoteVideo.srcObject = null;
+};
+
+const handleOffer = async message => {
+    try {
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(message.data));
+        const answer = await peerConnection.createAnswer();
+        await peerConnection.setLocalDescription(answer);
+        signalingSocket.send(JSON.stringify({ type: 'answer', data: answer }));
+    } catch (error) {
+        console.error('Error handling offer:', error);
+    }
+};
+
+const handleAnswer = async message => {
+    try {
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(message.data));
+    } catch (error) {
+        console.error('Error handling answer:', error);
+    }
+};
+
+startButton.addEventListener('click', startCall);
+stopButton.addEventListener('click', stopCall);
+    </script>
+</body>
+</html>

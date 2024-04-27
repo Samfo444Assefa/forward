@@ -1,0 +1,84 @@
+.hero-btn{
+      
+    padding: 12px 34px;
+    font-size: 16px;
+    border-radius: 30px;
+}
+.offer{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+}
+.offer h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+.offer p{
+    color: #777;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+.row{
+margin-top: 3%;
+display: flex;
+justify-content:space-between;
+}
+.row1{
+margin-top: 5%;
+display: flex;
+padding: 10px 10%;
+gap: 10px;
+margin-bottom: 5%;
+
+}
+.side-box{
+margin-bottom: 5%;
+}
+.offer-col{
+flex-basis: 31%;
+background: #e9c5c5;
+border-radius:10px;
+margin-bottom: 5%;
+padding: 20px 12px;
+box-sizing: border-box;
+transition: 0.5s;
+}
+.offer-col:hover{
+box-shadow: 0 0 18px 0px 
+}
+.offer-cole{
+width: 350px;
+height: 350px;
+background-image: url(img/bob.avif);
+background-position: center;
+background-size: cover;
+}
+.btn{
+margin-top: 5px;
+}
+h3{
+color: #fff;
+}
+.offer h1{
+    font-size: 36px;
+    font-weight: 600;
+    color: black;
+}
+.side-box p{
+  color: black;
+}
+ul a{
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+a:hover{
+ color: aqua;
+ transition: 0.5s ease-in-out;
+}

@@ -1,0 +1,215 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('Backgrounds/BKG.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .teachers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .teacher {
+    width: 30%;
+    background-color: #3333338d;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.6s ease-in-out;
+    border: 3px double #333;
+  }
+  
+  .teacher:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .teacher h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .teacher p {
+    line-height: 1.5;
+  }
+  
+  .teacher button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .teacher button:hover {
+    background-color: #2eafff;
+  }
+  
+  /* Animations (Customize these for different effects!) */
+  
+  .teachers {
+    animation: enter-row 0.5s ease-in-out forwards;
+  }
+  
+  @keyframes enter-row {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .teacher {
+    animation: box-pop 0.3s ease-in-out forwards;
+  }
+  
+  @keyframes box-pop {
+    from {
+      transform: scale(0.9);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  /* Add media queries for responsive design (optional) */
+  
+  @media only screen and (max-width: 768px) {
+    .teacher {
+      width: 48%;
+    }
+  }
+  .men{
+    align-items: center;
+  }
+ .align{
+    float: right;
+    text-align: right;
+    margin-top: -70px;
+    margin-right: 185px;
+ }
+ .margin{
+    margin-left: 200px;
+ }
+ button{
+    background-color: gray;
+    border-radius: 10px;
+ }
+ .Abeba{
+  text-decoration: none;
+ }
+ a{
+  color: white;
+  text-decoration: none;
+ }
+ .header{
+  position:fixed ;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.3rem 10%;
+    /*background: rgba(0, 0, 0, .1);*/
+    /*backdrop-filter: blur(50px);*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+ }
+ .header::before{
+     content:'' ;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     width: 100%;
+     height: 100%;
+     background-color: rgb(0, 0, 0,.1);
+     backdrop-filter: blur(50px);
+     z-index: -1;
+ }
+ .logo{
+     font-size: 2rem ;
+     color: #fff;
+     text-decoration: none;
+     font-weight: 700;
+ }
+ .navbar a{
+     font-size: 1.15rem;
+     color: #fff;
+     text-decoration: none;
+     font-weight:500 ;
+     margin-left: 2.5rem;
+     
+ 
+ }
+ .zoom{
+     padding: 10px 20px;
+     background-color: #007bff;
+     color: #fff;
+     border: none;
+     border-radius: 5px;
+     font-size: 16px;
+     cursor: pointer;
+     transition: transform 0.3s ease, background-color 0.3s ease;
+     backdrop-filter: blur(40px);
+ }
+ .zoom:hover{
+     transform: scale(1.1); 
+     background-color: #252839;
+ } 
+ .text{
+     font-size: 3rem;
+     text-align: center;
+     color: #333;
+     text-shadow: 2px 2px 4px rgba black, gray, black, gray;
+ }
+ h2{
+     position: relative;
+     font-size: 83x;
+     color: aqua;
+ }
+ #heading {
+     font-size: 100px; 
+     font-weight: bold;
+     opacity: 0; 
+     color: aqua;
+     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     animation: revealText 2s forwards;
+   }
+   
+   @keyframes revealText {
+     0% { opacity: 0; transform: scale(0.5); } 
+     50% { opacity: 1; } 
+     100% { opacity: 1; transform: scale(1); }
+   }
+ #heading{
+     font-size: 71px;
+ }
+   
+ 
+
+
+
+
+
+
+  
+  
